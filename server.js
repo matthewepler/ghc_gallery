@@ -10,6 +10,7 @@ var csurf = require('csurf');
 // Twilio Config
 var config = require('./twilioConfig');
 var twilioNotifications = require('./middleware/twilioNotifications');
+var twilio = require('./twilioClient');
 
 // Use morgan for HTTP request logging in dev and prod
 if (process.env.NODE_ENV !== 'test') {
@@ -48,7 +49,6 @@ app.use(flash());
 // Mount middleware to notify Twilio of errors
 app.use(twilioNotifications.notifyOnError);
 
-
 // ROUTES
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
@@ -56,9 +56,9 @@ app.get('/', function(request, response) {
 
 app.post('/', function(req, res) {
   console.log(req.body.text1);
+  twilio.sendSms('+12134077416', req.body.text1, 'https://s2.graphiq.com/sites/default/files/stories/t2/tiny_cat_12573_8950.jpg');
   res.redirect('/');
 });
-
 
 var PORT = process.env.PORT || 8080
 app.listen(PORT, function(error) {
