@@ -4,7 +4,12 @@ import React, { Component } from 'react';
 const Hello = React.createClass({
   render() {
     return(
-      <h1>Hello, {this.props.name}!</h1>
+      <div>
+        <form action="/" method="post">
+            <input type="text" name="text1" defaultValue="tasting123" />
+            <input type="submit" value="submit" /> 
+        </form>
+      </div>
     )
   }
 });
