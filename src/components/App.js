@@ -17,6 +17,7 @@ class App extends React.Component {
             posts: [],
             link: null,
             type: null,
+            success: false,
         };
     }
 
@@ -31,7 +32,6 @@ class App extends React.Component {
         // loads all existing data objects on first run
         var dbRef = firebase.database().ref('posts/');
         dbRef.on('child_added', data => {
-            console.log(data.val());
             const allPosts = this.state.posts;
             allPosts.push(data.val());
             this.setState({posts: allPosts});
@@ -80,12 +80,17 @@ class App extends React.Component {
         });
 
         ajax.on('success', event => {
-            console.log('ajax success', event.target.response);
             if (event.target.response === 'true') {
                 this.removeError();
-                this.modalOff();
+                this.setState({success: true});
+                setTimeout(() => {
+                    console.log('timeout function called');
+                    this.setState({success: false});
+                    this.modalOff();
+                }, 2000);
             } else {
-
+                this.removeError();
+                this.addError('phone number');
             }
         });
 
@@ -173,19 +178,25 @@ class App extends React.Component {
                             onClick={this.modalOff.bind(this)}
                             >&#x02A2F;
                         </div>
-                        {this.state.type === 'email' ? <h3>Please enter your email</h3> : ''}
-                        {this.state.type === 'text' ? <h3>Please enter your phone number</h3>: ''}
-                        <input type="text"
-                                placeholder= {this.state.type === 'email' ?
-                                                'example@gmail.com' :
-                                                '555-555-5555'}
-                                ref={c => this.textInput = c}
-                                onKeyPress={this.checkSubmit.bind(this)}
-                                />
-                        <input type="submit" 
-                                onClick={this.handleSubmit.bind(this)}
-                                value="Send"
-                                />
+                        {this.state.success === true ? 
+                            <i className="fa fa-check-circle check" aria-hidden="true"></i>
+                            : 
+                            (<div className="input-form">
+                            {this.state.type === 'email' ? <h3>Please enter your email</h3> : ''}
+                            {this.state.type === 'text' ? <h3>Please enter your phone number</h3>: ''}
+                            <input type="text"
+                                    placeholder= {this.state.type === 'email' ?
+                                                    'example@gmail.com' :
+                                                    '555-555-5555'}
+                                    ref={c => this.textInput = c}
+                                    onKeyPress={this.checkSubmit.bind(this)}
+                                    />
+                            <input type="submit" 
+                                    onClick={this.handleSubmit.bind(this)}
+                                    value="Send"
+                                    />
+                            </div>)
+                        }
                     </div>
                 </div>
             </div>
