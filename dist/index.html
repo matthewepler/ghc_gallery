@@ -2,10 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Node + React Starter</title>
+    <title>Grace Hopper Gallery</title>
+     <link rel="stylesheet" type="text/css" href="./normalize.css">
+    <link rel="stylesheet" type="text/css" href="./font-awesome/css/font-awesome.min.css">
   </head>
   <body>
     <div id='root'/>
   </body>
+  <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDBtT_ynSvPYMrdGVwFIOuotb24a5YcccM",
+        authDomain: "grace-hopper-gallery-f2ff2.firebaseapp.com",
+        databaseURL: "https://grace-hopper-gallery-f2ff2.firebaseio.com",
+        storageBucket: "grace-hopper-gallery-f2ff2.appspot.com",
+        messagingSenderId: "1000100912817"
+      };
+      firebase.initializeApp(config);
+    </script>
   <script src="/bundle.js"></script>
 </html>

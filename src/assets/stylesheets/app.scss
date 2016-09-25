@@ -1,0 +1,83 @@
+html, body{
+  min-height: 100%;
+  min-width: 100%
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.header {
+    padding: 3rem 0;
+}
+
+.app-posts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.app-overlay {
+    background-color: rgba(0,0,0,0.7); 
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+    .modal {
+        background-color: white;
+        color: #212121;
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+        padding: 2rem;
+        position: absolute;
+        top: 20%;
+        left: calc(50% - 250px - 2rem);
+        width: 500px;
+        z-index: 101;
+
+        div.close {
+            color: black;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        input {
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            background-color:  #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+    }
+}
+
+.app-show {
+    display: block;
+}
+
+.app-hide {
+    display: none; 
+}
+
+p#modal-error {
+    color: red;
+    font-size: 0.75rem;
+    font-style: italic;
+    margin-bottom: 0;
+}

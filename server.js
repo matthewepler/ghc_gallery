@@ -6,6 +6,12 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var csurf = require('csurf');
+var firebase = require('firebase');
+
+// view engine setup
+app.set('views', __dirname + '/src/components');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
 // Twilio Config
 var config = require('./twilioConfig');
@@ -35,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(bodyParser.json());
 
 // Create and manage HTTP sessions for all requests
 app.use(session({
@@ -54,10 +61,13 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
 });
 
-app.post('/', function(req, res) {
-  console.log(req.body.text1);
-  twilio.sendSms('+12134077416', req.body.text1, 'https://s2.graphiq.com/sites/default/files/stories/t2/tiny_cat_12573_8950.jpg');
-  res.redirect('/');
+app.post('/post', function(req, res) {
+  if (req.body.type === 'text') {
+    twilio.sendSms(req.body.data, "Thanks for stopping by!", req.body.link);
+    setTimeout(function() {
+      res.send(twilio.status);
+    }, 1000);
+  }
 });
 
 var PORT = process.env.PORT || 8080
