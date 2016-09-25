@@ -6,7 +6,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var csurf = require('csurf');
-var firebase = require('firebase');
+var emailer = require('./emailConfig.js');
 
 // view engine setup
 app.set('views', __dirname + '/src/components');
@@ -66,7 +66,12 @@ app.post('/post', function(req, res) {
     twilio.sendSms(req.body.data, "Thanks for stopping by!", req.body.link);
     setTimeout(function() {
       res.send(twilio.status);
-    }, 1000);
+    }, 3000);
+  } else if (req.body.type === 'email') {
+    emailer.sendEmail(req.body.data, req.body.link);
+    setTimeout(function() {
+      res.send(emailer.status);
+    }, 3000)
   }
 });
 
@@ -78,5 +83,7 @@ app.listen(PORT, function(error) {
     console.info("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
   }
 });
+
+
 
 module.exports = app;

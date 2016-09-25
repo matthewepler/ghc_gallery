@@ -80,17 +80,22 @@ class App extends React.Component {
         });
 
         ajax.on('success', event => {
+            console.log('ajax success: ', event.target.response);
             if (event.target.response === 'true') {
                 this.removeError();
                 this.setState({success: true});
                 setTimeout(() => {
-                    console.log('timeout function called');
                     this.setState({success: false});
                     this.modalOff();
                 }, 2000);
             } else {
                 this.removeError();
-                this.addError('phone number');
+                if (this.state.type === 'text') {
+                    this.addError('phone number');    
+                } else if (this.state.type === 'email') {
+                    this.addError('email');
+                }
+                
             }
         });
 
@@ -106,10 +111,10 @@ class App extends React.Component {
         if (this.state.type === 'email') {
             const regex = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
             if (regex.test(input)) {
-                    console.log(input); // SEND EMAIL 
+                    this.sendData(input);
                     this.removeError();
-                    this.modalOff();
             } else {
+                this.removeError();
                 this.addError('email');
             }
         } else if (this.state.type === 'text') {

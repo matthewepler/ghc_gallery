@@ -10,6 +10,7 @@ module.exports.sendSms = function(to, message, url) {
   }, function(err, data) {
     if (err) {
       console.error('TWILIO ERROR: Could not send text to', to);
+      console.log(err);
       module.exports.status = false;
     } else {
       console.log('TWILIO SUCCESS: SMS sent to', to);

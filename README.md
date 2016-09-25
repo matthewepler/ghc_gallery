@@ -1,4 +1,6 @@
 # TO DO 
+* on close (x) of modal, clear errors
+* modal should pop up at wherever they are in the scroll.
 * on 5555555555 'ajax success false', no error appears in modal.
 * Twilio - turn off responses
 
