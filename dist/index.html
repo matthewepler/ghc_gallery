@@ -2,24 +2,51 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Grace Hopper Gallery</title>
+    <title>Grace Hopper Login</title>
      <link rel="stylesheet" type="text/css" href="./normalize.css">
     <link rel="stylesheet" type="text/css" href="./font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+        body {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        img {
+            width: 160px;
+            margin: 0 auto;
+        }
+
+        .signin {
+            margin-top: 3rem;
+            max-width: 150px;
+        }
+
+        .signin form input {
+            text-align: center;
+        }
+
+        .signin form input[type="submit"] {
+            background-color:  #3f51b5;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            margin-top: 1rem;
+            padding: .5rem;
+            width: 160px;
+        }
+    </style>
   </head>
   <body>
-    <div id='root'/>
+        <div class="signin">
+            <img src="./mkg_logo.jpg" />
+            <form action="/app" method="post">
+                <input type="text" name="user" placeholder="user"/>
+                <input type="text" name="password" placeholder="pswd"/>
+                <br/>
+                <input type="submit" value="sign in" />
+            </form>
+        </div>
   </body>
-  <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDBtT_ynSvPYMrdGVwFIOuotb24a5YcccM",
-        authDomain: "grace-hopper-gallery-f2ff2.firebaseapp.com",
-        databaseURL: "https://grace-hopper-gallery-f2ff2.firebaseio.com",
-        storageBucket: "grace-hopper-gallery-f2ff2.appspot.com",
-        messagingSenderId: "1000100912817"
-      };
-      firebase.initializeApp(config);
-    </script>
-  <script src="/bundle.js"></script>
 </html>

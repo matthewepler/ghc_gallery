@@ -18,6 +18,7 @@ class App extends React.Component {
             link: null,
             type: null,
             success: false,
+            sending: false,
         };
     }
 
@@ -66,7 +67,7 @@ class App extends React.Component {
             data = "+1" + data;
         }
 
-        const url = window.location.href + 'post';
+        const url = window.location.href + '/post';
 
         let ajax = new Ajax({
             url: url,
@@ -83,12 +84,14 @@ class App extends React.Component {
             console.log('ajax success: ', event.target.response);
             if (event.target.response === 'true') {
                 this.removeError();
+                this.setState({sending: false});
                 this.setState({success: true});
                 setTimeout(() => {
                     this.setState({success: false});
                     this.modalOff();
                 }, 2000);
             } else {
+                this.setState({sending: false});
                 this.removeError();
                 if (this.state.type === 'text') {
                     this.addError('phone number');    
@@ -111,6 +114,7 @@ class App extends React.Component {
         if (this.state.type === 'email') {
             const regex = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
             if (regex.test(input)) {
+                    this.setState({sending: true});
                     this.sendData(input);
                     this.removeError();
             } else {
@@ -120,6 +124,7 @@ class App extends React.Component {
         } else if (this.state.type === 'text') {
             const regex = /\d{3}-?\d{3}-?\d{4}/
             if (regex.test(input)) {
+                this.setState({sending: true});
                 this.sendData(input.replace('-', ''));
                 this.removeError();
             } else {
@@ -183,25 +188,32 @@ class App extends React.Component {
                             onClick={this.modalOff.bind(this)}
                             >&#x02A2F;
                         </div>
-                        {this.state.success === true ? 
-                            <i className="fa fa-check-circle check" aria-hidden="true"></i>
-                            : 
-                            (<div className="input-form">
-                            {this.state.type === 'email' ? <h3>Please enter your email</h3> : ''}
-                            {this.state.type === 'text' ? <h3>Please enter your phone number</h3>: ''}
-                            <input type="text"
-                                    placeholder= {this.state.type === 'email' ?
-                                                    'example@gmail.com' :
-                                                    '555-555-5555'}
-                                    ref={c => this.textInput = c}
-                                    onKeyPress={this.checkSubmit.bind(this)}
-                                    />
-                            <input type="submit" 
-                                    onClick={this.handleSubmit.bind(this)}
-                                    value="Send"
-                                    />
-                            </div>)
+                        {this.state.sending === true ?
+                            <i className="fa fa-circle-o-notch fa-spin check" aria-hidden="true"></i>
+                            :
+                            <div>
+                            {this.state.success === true ? 
+                                <i className="fa fa-check-circle check" aria-hidden="true"></i>
+                                : 
+                                (<div className="input-form">
+                                {this.state.type === 'email' ? <h3>Please enter your email</h3> : ''}
+                                {this.state.type === 'text' ? <h3>Please enter your phone number</h3>: ''}
+                                <input type="text"
+                                        placeholder= {this.state.type === 'email' ?
+                                                        'example@gmail.com' :
+                                                        '555-555-5555'}
+                                        ref={c => this.textInput = c}
+                                        onKeyPress={this.checkSubmit.bind(this)}
+                                        />
+                                <input type="submit" 
+                                        onClick={this.handleSubmit.bind(this)}
+                                        value="Send"
+                                        />
+                                </div>)
+                            }
+                            </div>
                         }
+                        
                     </div>
                 </div>
             </div>

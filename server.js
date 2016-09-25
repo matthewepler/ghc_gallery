@@ -58,10 +58,25 @@ app.use(twilioNotifications.notifyOnError);
 
 // ROUTES
 app.get('/', function(request, response) {
+  console.log('*^*^* i here');
   response.sendFile(__dirname + '/dist/index.html')
+})
+
+app.get('/app', function(request, response) {
+  response.redirect('/');
 });
 
-app.post('/post', function(req, res) {
+app.post('/app', function(request, response) {
+  console.log(request.body.user, request.body.password);
+  if (request.body.user.trim() === 'grace' && request.body.password.trim() === 'hopper') {
+    response.sendFile(__dirname + '/dist/app.html');
+  } else {
+    response.redirect('/');
+  }
+});
+
+app.post('/app/post', function(req, res) {
+  console.log(req.body.type, req.body.data);
   if (req.body.type === 'text') {
     twilio.sendSms(req.body.data, "Thanks for stopping by!", req.body.link);
     setTimeout(function() {
@@ -71,7 +86,7 @@ app.post('/post', function(req, res) {
     emailer.sendEmail(req.body.data, req.body.link);
     setTimeout(function() {
       res.send(emailer.status);
-    }, 3000)
+    }, 5000)
   }
 });
 
