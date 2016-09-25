@@ -66,8 +66,10 @@ class App extends React.Component {
             data = "+1" + data;
         }
 
+        const url = window.location.href + 'post';
+
         let ajax = new Ajax({
-            url: '/post',
+            url: url,
             method: 'POST',
             dataType: 'json',
             data: {
