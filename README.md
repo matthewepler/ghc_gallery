@@ -1,8 +1,9 @@
 # TO DO 
 * on close (x) of modal, clear errors
 * modal should pop up at wherever they are in the scroll.
-* on 5555555555 'ajax success false', no error appears in modal.
+* fade-in new pics
 * Twilio - turn off responses
+* delete git branches
 
 created using the template by Alan B. Smith, see link to repo in 1st step below
 
@@ -29,3 +30,9 @@ heroku open
 ```
 ## Production Steps
 set env vars on heroku: `heroku config:set TIMES=2`
+
+# DEV NOTES
+When sending email, if using Gmail the first message will prompt a warning email 
+to be sent to the inbox about a Less Secure app trying to authorize. You will
+need to follow the instructions in the email that will ALLOW use of Less Secure
+Apps to send email from your account.

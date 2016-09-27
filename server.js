@@ -68,7 +68,7 @@ app.get('/app', function(request, response) {
 
 app.post('/app', function(request, response) {
   console.log(request.body.user, request.body.password);
-  if (request.body.user.trim() === 'grace' && request.body.password.trim() === 'hopper') {
+  if (request.body.user.trim() === process.env.USER && request.body.password.trim() === process.env.PSWD) {
     response.sendFile(__dirname + '/dist/app.html');
   } else {
     response.redirect('/');
@@ -78,7 +78,7 @@ app.post('/app', function(request, response) {
 app.post('/app/post', function(req, res) {
   console.log(req.body.type, req.body.data);
   if (req.body.type === 'text') {
-    twilio.sendSms(req.body.data, "Thanks for stopping by!", req.body.link);
+    twilio.sendSms(req.body.data, req.body.link);
     setTimeout(function() {
       res.send(twilio.status);
     }, 3000);

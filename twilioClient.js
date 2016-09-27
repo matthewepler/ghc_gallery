@@ -1,9 +1,9 @@
 var config = require('./twilioConfig');
 var client = require('twilio')(config.twilioAccountSid, config.twilioAuthToken);
 
-module.exports.sendSms = function(to, message, url) {
+module.exports.sendSms = function(to, url) {
   result = client.messages.create({
-    body: message,
+    body: " Check out your emoji from #GHC2016!",
     to: to,
     from: config.twilioSendingNumber,
     mediaUrl: url,

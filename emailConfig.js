@@ -17,8 +17,8 @@ module.exports.sendEmail = function(userAddress, imgLink) {
     var mailOptions = {
       from: 'gstore@thisismkg.com',
       to: userAddress,
-      subject: 'Grace Hopper Emoji',
-      html: '<p>Thanks for visiting!</p><br/><img src="cid:' + cid + '"/>',
+      subject: ' Check out your emoji from #GHC2016!',
+      html: '<p>Thanks for dropping by the Google booth and coding your one-of-a-kind emoji. Your emoji is attached below.</p><br/><img src="cid:' + cid + '"/>',
       attachments: [{
         filename: cid + '.png',
         path: imgLink,
