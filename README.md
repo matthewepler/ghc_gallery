@@ -1,10 +1,6 @@
 # TO DO 
-* heroku account for gstore and push there.
+* favicon
 * Twilio SenderID = "Emojified GHC"
-* close -> white
-* on close (x) of modal, clear errors
-* Twilio - turn off responses
-* delete git branches
 
 created using the template by Alan B. Smith, see link to repo in 1st step below
 

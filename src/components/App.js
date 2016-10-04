@@ -58,6 +58,7 @@ class App extends React.Component {
     }
 
     modalOff() {
+        this.removeError();
         this.setState({link: null});
         this.textInput.value = '';
     }
