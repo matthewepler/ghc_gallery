@@ -6,7 +6,7 @@ module.exports.sendEmail = function(userAddress, imgLink) {
   var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: 'gstore@thisismkg.com',
+          user: 'emojifiedghc@gmail.com',
           pass: '599broadway'
         }
     });
@@ -15,7 +15,7 @@ module.exports.sendEmail = function(userAddress, imgLink) {
     var cid = imgLink.match(regex)[0];
 
     var mailOptions = {
-      from: 'gstore@thisismkg.com',
+      from: 'emojifiedghc@gmail.com',
       to: userAddress,
       subject: ' Check out your emoji from #GHC2016!',
       html: '<p>Thanks for dropping by the Google booth and coding your one-of-a-kind emoji. Your emoji is attached below.</p><br/><img src="cid:' + cid + '"/>',
