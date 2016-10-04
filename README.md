@@ -1,4 +1,5 @@
 # TO DO 
+* heroku account for gstore and push there.
 * Twilio SenderID = "Emojified GHC"
 * close -> white
 * on close (x) of modal, clear errors
