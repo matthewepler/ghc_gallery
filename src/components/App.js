@@ -23,11 +23,11 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        firebase.auth().signInAnonymously().catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(error.code, error.message);
-        });
+        // firebase.auth().signInAnonymously().catch(function(error) {
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        //   console.log(error.code, error.message);
+        // });
         
         // adds listening event for new files from database
         // loads all existing data objects on first run
@@ -40,7 +40,6 @@ class App extends React.Component {
 
         dbRef.on('child_removed', data => {
             console.log(data.val());
-            // TODO: find in state array and remove
         });
     }
 
@@ -68,10 +67,10 @@ class App extends React.Component {
             data = "+1" + data;
         }
 
-        const url = window.location.href + '/post';
+        //const url = window.location.href + '/post';
 
         let ajax = new Ajax({
-            url: url,
+            url: '/',
             method: 'POST',
             dataType: 'json',
             data: {

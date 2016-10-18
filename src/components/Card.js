@@ -50,10 +50,6 @@ class Card extends React.Component {
                                 aria-hidden="true"
                                 onClick={this.handleActionClick.bind(this)}>
                             </i>
-                            <i className="fa fa-comment"
-                                aria-hidden="true"
-                                onClick={this.handleActionClick.bind(this)}>
-                            </i>
                         </div>
                     </div>
                 </div>

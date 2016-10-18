@@ -1,6 +1,6 @@
 # TO DO 
-* favicon
-* Twilio SenderID = "Emojified GHC"
+* post install: remove text/email?
+
 
 created using the template by Alan B. Smith, see link to repo in 1st step below
 

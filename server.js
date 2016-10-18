@@ -58,24 +58,26 @@ app.use(twilioNotifications.notifyOnError);
 
 // ROUTES
 app.get('/', function(request, response) {
-  console.log('*^*^* i here');
-  response.sendFile(__dirname + '/dist/index.html')
+  response.sendFile(__dirname + '/dist/index.html') // change to 'login.html' if activating login
 })
 
-app.get('/app', function(request, response) {
-  response.redirect('/');
-});
 
-app.post('/app', function(request, response) {
-  console.log(request.body.user, request.body.password);
-  if (request.body.user.trim() === process.env.USER && request.body.password.trim() === process.env.PSWD) {
-    response.sendFile(__dirname + '/dist/app.html');
-  } else {
-    response.redirect('/');
-  }
-});
+// - THIS SECTION ADDS A LOGIN PAGE TO LIMIT ACCESS -
 
-app.post('/app/post', function(req, res) {
+// app.get('/app', function(request, response) {
+//   response.redirect('/');
+// });
+
+// app.post('/app', function(request, response) {
+//   console.log(request.body.user, request.body.password);
+//   if (request.body.user.trim() === process.env.USER && request.body.password.trim() === process.env.PSWD) {
+//     response.sendFile(__dirname + '/dist/login.html');
+//   } else {
+//     response.redirect('/');
+//   }
+// });
+
+app.post('/', function(req, res) { // prepend '/app' to route if activating login
   console.log(req.body.type, req.body.data);
   if (req.body.type === 'text') {
     twilio.sendSms(req.body.data, req.body.link);
