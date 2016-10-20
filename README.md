@@ -1,4 +1,7 @@
 # TO DO 
+* add route to sign-in with write permissions. 
+* paginate for faster load time
+* post install: remove admin code (see server.js and App.js for sign-in)
 * post install: remove text/email?
 
 

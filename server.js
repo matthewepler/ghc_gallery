@@ -61,6 +61,9 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html') // change to 'login.html' if activating login
 })
 
+app.get('/admin', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html');
+})
 
 // - THIS SECTION ADDS A LOGIN PAGE TO LIMIT ACCESS -
 

@@ -22,11 +22,23 @@
                 color: white;
                 cursor: pointer;
                 filter: brightness(1);
-                font-size: 1.25rem;  
+                font-size: 1.5rem;  
                 opacity: 1; 
                 position: absolute;
                 right: 1.75rem;
-                top: 1.25rem;
+                top: 1.15rem;
+                z-index: 100;
+            }
+
+            div#delete {
+                color: red;
+                cursor: pointer;
+                filter: brightness(1);
+                font-size: 1.5rem;  
+                opacity: 1; 
+                position: absolute;
+                right: 16rem;
+                top: 1.15rem;
                 z-index: 100;
             }
 

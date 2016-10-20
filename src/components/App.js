@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Ajax from 'simple-ajax';
+import _ from 'underscore';
 
 // components
 import Card from './Card.js'
@@ -16,40 +17,50 @@ class App extends React.Component {
         this.state = {
             posts: [],
             link: null,
+            loadedPosts: 0,
+            totalPosts: 0,
             type: null,
             success: false,
             sending: false,
         };
     }
 
+    componentWillMount() {
+        if (window.location.href.includes('admin')) {
+            firebase.auth().signInWithEmailAndPassword('gstore@thisismkg.com', '599broadway').catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ...
+            });
+        }
+    }
+
     componentDidMount() {
-        // firebase.auth().signInAnonymously().catch(function(error) {
-        //   var errorCode = error.code;
-        //   var errorMessage = error.message;
-        //   console.log(error.code, error.message);
-        // });
+        const dbRef = firebase.database().ref('posts/');
         
-        // adds listening event for new files from database
-        // loads all existing data objects on first run
-        var dbRef = firebase.database().ref('posts/');
-        dbRef.on('child_added', data => {
-            const allPosts = this.state.posts;
-            allPosts.push(data.val());
-            this.setState({posts: allPosts});
+        const allPosts = this.state.posts;
+        dbRef.on('value', data => { // .limitToLast(1)
+            //console.log(_.size(data.val()));
+            this.setState({totalPosts: _.size(data.val())});
+            for (let v in data.val()) {
+                allPosts.push(data.val()[v]);
+                this.setState({
+                    posts: allPosts,
+                    loadedPosts: this.state.loadedPosts + 1,
+                });
+            }
+            // allPosts.push(data.val());
+            // 
         });
 
         dbRef.on('child_removed', data => {
-            console.log(data.val());
+            console.log('post removed: ', data.val());
         });
     }
 
-    componentWillUnmount() {
-        var user = firebase.auth().currentUser;
-        user.delete().then(function() {
-          console.log('user deleted');
-        }, function(error) {
-          console.log(error);
-        });
+    shouldComponentUpdate() {
+        return this.state.loadedPosts === this.state.totalPosts -1;
     }
 
     launchModal(type, link) {
@@ -166,6 +177,7 @@ class App extends React.Component {
                     action={this.launchModal.bind(this)} 
                     />
         });
+        console.log(posts.length - 117, ' posts');
 
         const showHide = classNames({
             'app-overlay' : true,
@@ -178,7 +190,7 @@ class App extends React.Component {
                 <div className="header">
                     <img src={logo} />
                 </div>
-                <div className="app-posts">
+                <div className="app-posts" id="app-posts-div">
                     {posts}
                 </div>
                 <div className={showHide}>
@@ -213,7 +225,6 @@ class App extends React.Component {
                             }
                             </div>
                         }
-                        
                     </div>
                 </div>
             </div>
