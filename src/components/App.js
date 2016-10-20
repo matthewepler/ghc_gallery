@@ -177,7 +177,8 @@ class App extends React.Component {
                     action={this.launchModal.bind(this)} 
                     />
         });
-        console.log(posts.length - 117, ' posts');
+        const total = posts.length - 117;
+        if (total > 0) console.log(total);
 
         const showHide = classNames({
             'app-overlay' : true,
